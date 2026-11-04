@@ -1,0 +1,23 @@
+# Segredos e configuração local
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dados reais (LGPD): nunca versionar notas fiscais
+*.pdf
+*.xml
+*.csv
+*.zip
+
+# Python / build
+__pycache__/
+*.pyc
+.venv/
+venv/
+package/
+*.zip
+.DS_Store
+.vscode/
+.idea/
