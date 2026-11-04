@@ -16,7 +16,7 @@ O objetivo é reduzir o trabalho manual de identificação e organização de no
 4. A Lambda valida a notificação e identifica o arquivo que precisa ser processado.
 5. O arquivo é baixado do SharePoint por meio da Microsoft Graph API.
 6. O sistema identifica o nome do emitente/prestador, aplicando validações para evitar confundir o fornecedor com o tomador ou destinatário.
-7. Quando a emissão é identificada como sendo da própria ALMAI, o arquivo não é renomeado.
+7. Quando a emissão é identificada como sendo da própria SUA EMPRESA, o arquivo não é renomeado.
 8. Se o nome do fornecedor for identificado com segurança, a Lambda renomeia o arquivo no próprio SharePoint.
 9. O DynamoDB registra o processamento para evitar que notificações repetidas provoquem um novo processamento desnecessário.
 
@@ -29,7 +29,7 @@ Quando a notificação não informa diretamente o ID do arquivo e aponta para a 
 - **XML:** identificação do emitente em diferentes estruturas, incluindo padrões de NFS-e/NF-e, tabelas e layouts FastReport.
 - **CSV:** identificação do fornecedor a partir de colunas relacionadas a prestador, fornecedor ou emitente.
 - **Validação de documentos:** validação de CPF e CNPJ antes de considerar os documentos encontrados no conteúdo.
-- **Bloqueio da ALMAI:** impede a renomeação de notas identificadas como emitidas pela própria empresa, incluindo filiais que compartilhem a raiz do CNPJ configurado.
+- **Bloqueio da SUA EMPRESA:** impede a renomeação de notas identificadas como emitidas pela própria empresa, incluindo filiais que compartilhem a raiz do CNPJ configurado.
 - **Limpeza de nomes:** remove acentos e caracteres inválidos, filtra textos que aparentam ser endereços, documentos ou informações sem relação com o nome do fornecedor e limita o nome gerado a 20 caracteres.
 - **Prevenção de conflitos:** verifica os nomes existentes na pasta e utiliza sufixos numéricos quando necessário.
 - **Idempotência:** consulta o DynamoDB para evitar reprocessar arquivos já renomeados ou reconhecidos como estando no padrão.
@@ -116,7 +116,7 @@ As configurações são lidas por variáveis de ambiente na AWS Lambda. Para des
 | `SHAREPOINT_FOLDER_PATH` | Caminho-base da pasta de notas |
 | `SHAREPOINT_SITE_ID` | ID do site; opcional quando pode ser resolvido pela URL |
 | `SHAREPOINT_DRIVE_ID` | ID do Drive/biblioteca; opcional quando pode ser resolvido automaticamente |
-| `ALMAI_CNPJ` | CNPJ usado como referência para bloquear notas emitidas pela ALMAI |
+| `SUA EMPRESA CNPJ` | CNPJ usado como referência para bloquear notas emitidas pela SUA EMPRESA |
 | `DRY_RUN` | `true` simula; `false` permite renomear de verdade |
 | `USAR_AWS_TEXTRACT` | Ativa ou desativa a integração com Textract |
 | `GRAPH_CLIENT_STATE` | Valor secreto compartilhado para validar notificações do webhook |
@@ -150,7 +150,7 @@ SHAREPOINT_WATCH_YEARS=
 SHAREPOINT_TIPOS_PASTA=PDF,XML,CSV
 
 # Regras de negócio
-ALMAI_CNPJ=00.000.000/0001-00
+SUAEMPRESA_CNPJ=00.000.000/0001-00
 
 # Webhook Microsoft Graph
 # Gere um valor longo, aleatório e difícil de adivinhar.
