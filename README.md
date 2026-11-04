@@ -72,7 +72,7 @@ AWS Lambda Function URL
    |
    +---- Parser PDF / XML / CSV -> Identifica o emitente
    |
-   +---- Amazon Textract --------> OCR opcional
+   +---- Amazon Textract --------> OCR (opcional)
    |
    +---- DynamoDB ---------------> Histórico e idempotência
 
